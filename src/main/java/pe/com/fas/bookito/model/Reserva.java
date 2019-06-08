@@ -35,10 +35,22 @@ public class Reserva implements Serializable{
 	private Usuario usuario;
 	
 	@NotNull
+	private String estado;
+	
+	@NotNull
 	private Long penalizacion;
 		
 	@ManyToOne(fetch = FetchType.EAGER)
 	BookitoSede bookitoSede;
+
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
 	public Long getId() {
 		return id;
