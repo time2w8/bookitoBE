@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +30,7 @@ import pe.com.fas.bookito.service.ICategoriaService;
 @RestController
 @RequestMapping("/categorias")
 @Api(value = "categorias", description = "Operaciones para la entidad Categoría")
+@CrossOrigin(origins = "*")
 public class CategoriaController {
 
 	@Autowired
@@ -75,13 +78,13 @@ public class CategoriaController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping("/save")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> save(@RequestBody Categoria obj) {
+	public HttpStatus save(@RequestBody Categoria obj) {
 		try {
 			service.save(obj);
-			return new ResponseEntity<>("Categoria ingresada correctamente", HttpStatus.OK);
+			return HttpStatus.OK;
 		} catch (Exception e) {
 			// TODO: handle exception
-			return new ResponseEntity<>("No se pudo ingresar categoria", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo guarda la Categoría");
 		}
 	}
 
@@ -92,19 +95,19 @@ public class CategoriaController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PutMapping("/update/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> update(@PathVariable("id") Long id, @RequestBody Categoria obj) {
+	public HttpStatus update(@PathVariable("id") Long id, @RequestBody Categoria obj) {
 		Categoria objTemp = new Categoria();
 		objTemp = service.findOne(id);
 		if (objTemp != null) {
 			try {
 				service.save(obj);
-				return new ResponseEntity<>("Categoria actualizada correctamente", HttpStatus.OK);
+				return HttpStatus.OK;
 			} catch (Exception e) {
 				// TODO: handle exception
-				return new ResponseEntity<>("No se pudo actualizar categoria", HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo actualizar la Categoría");
 			}
 		} else {
-			return new ResponseEntity<>("No se pudo encontrar la categoria", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la categoría");
 		}
 	}
 
@@ -115,13 +118,13 @@ public class CategoriaController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@DeleteMapping("/delete/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+	public HttpStatus delete(@PathVariable("id") Long id) {
 		try {
 			service.delete(id);
-			return new ResponseEntity<>("La categoria ha sido eliminada con éxito", HttpStatus.OK);
+			return HttpStatus.OK;
 		} catch (Exception e) {
 			// TODO: handle exception
-			return new ResponseEntity<>("No se pudo eliminar la categoria", HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo eliminar la Categoría");
 		}
 	}
 
