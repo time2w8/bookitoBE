@@ -12,6 +12,9 @@ spring:
     username: postgres
     password: admin
     
+logging:
+  level:
+    org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl: ERROR
     
 server:
   port: 8090 

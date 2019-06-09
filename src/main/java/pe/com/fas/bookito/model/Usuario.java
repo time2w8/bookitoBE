@@ -55,8 +55,30 @@ public class Usuario implements Serializable{
 	@Size(min=9, max=9)
 	private Long celular;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private HsUsuario security;
+	@NotNull
+	private String password;
+	
+	@NotNull
+	private Date lastLogin;
+	
+	@NotNull
+	private String status;
+	
+	@NotNull
+	private Long intentos;
+	
+	@ManyToOne(fetch =  FetchType.EAGER)
+	private Sede sede;
+	
+	@NotNull
+	private String codigo;
+	
+	@NotNull
+	private Boolean esAlumno;
+	
+	@NotNull
+	private int active;
+
 
 	public Long getId() {
 		return id;
@@ -130,12 +152,68 @@ public class Usuario implements Serializable{
 		this.celular = celular;
 	}
 
-	public HsUsuario getSecurity() {
-		return security;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSecurity(HsUsuario security) {
-		this.security = security;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Long getIntentos() {
+		return intentos;
+	}
+
+	public void setIntentos(Long intentos) {
+		this.intentos = intentos;
+	}
+
+	public Sede getSede() {
+		return sede;
+	}
+
+	public void setSede(Sede sede) {
+		this.sede = sede;
+	}
+
+	public String getCódigo() {
+		return codigo;
+	}
+
+	public void setCódigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public Boolean getEsAlumno() {
+		return esAlumno;
+	}
+
+	public void setEsAlumno(Boolean esAlumno) {
+		this.esAlumno = esAlumno;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 }

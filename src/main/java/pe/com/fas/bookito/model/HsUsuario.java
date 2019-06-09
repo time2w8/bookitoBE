@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+//Prueba para seguridad TO-DO
 @Entity
 @Table(name = "hs_usuarios")
 public class HsUsuario implements Serializable{
@@ -42,8 +43,6 @@ public class HsUsuario implements Serializable{
 	@NotNull
 	private Long intentos;
 	
-	@ManyToOne(fetch =  FetchType.EAGER)
-	private Sede sede;
 	
 	@NotNull
 	private String código;
@@ -96,14 +95,6 @@ public class HsUsuario implements Serializable{
 
 	public void setIntentos(Long intentos) {
 		this.intentos = intentos;
-	}
-
-	public Sede getSede() {
-		return sede;
-	}
-
-	public void setSede(Sede sede) {
-		this.sede = sede;
 	}
 
 	public String getCódigo() {
