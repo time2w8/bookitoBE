@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.Universidad;
 import pe.com.fas.bookito.service.IUniversidadService;
 
 @RestController
-@RequestMapping("/universidades")
+@RequestMapping("/api/v1/universidades")
 public class UniversidadController {
 
 	@Autowired

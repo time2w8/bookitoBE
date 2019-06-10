@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.UsuarioCurso;
 import pe.com.fas.bookito.service.IUsuarioCursoService;
 
 @RestController
-@RequestMapping("/usuario_cursos")
+@RequestMapping("/api/v1/usuario_cursos")
 public class UsuarioCursoController {
 
 	@Autowired

@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 //Prueba para seguridad TO-DO
@@ -39,23 +40,36 @@ public class HsUsuario implements Serializable{
 	
 	@NotNull
 	private String status;
+
+	@NotNull
+	@Email
+	private String email;
 	
 	@NotNull
 	private Long intentos;
 	
-	
 	@NotNull
-	private String código;
+	private String codigo;
 	
-	@NotNull
-	private Boolean esAlumno;
-	
-	@NotNull
-	private int active;
-	
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @NotNull
+    private String rol;
+
+    
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 
 	public Long getId() {
 		return id;
@@ -97,20 +111,12 @@ public class HsUsuario implements Serializable{
 		this.intentos = intentos;
 	}
 
-	public String getCódigo() {
-		return código;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCódigo(String código) {
-		this.código = código;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
-	public Boolean getEsAlumno() {
-		return esAlumno;
-	}
-
-	public void setEsAlumno(Boolean esAlumno) {
-		this.esAlumno = esAlumno;
-	}
-	
 }

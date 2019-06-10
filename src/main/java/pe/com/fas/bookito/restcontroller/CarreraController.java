@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.Carrera;
 import pe.com.fas.bookito.service.ICarreraService;
 
 @RestController
-@RequestMapping("/carreras")
+@RequestMapping("/api/v1/carreras")
 public class CarreraController {
 
 	@Autowired

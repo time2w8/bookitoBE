@@ -52,4 +52,16 @@ public class HsUsuarioService implements IHsUsuarioService {
 		return null;
 	}
 
+	@Override
+	public HsUsuario findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return dao.findByEmail(email);
+	}
+
+	@Override
+	public HsUsuario findByCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return dao.findByCodigo(codigo);
+	}
+
 }

@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.Tag;
 import pe.com.fas.bookito.service.ITagService;
 
 @RestController
-@RequestMapping("/tags")
+@RequestMapping("/api/v1/tags")
 public class TagController {
 
 	@Autowired

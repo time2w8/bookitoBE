@@ -3,6 +3,7 @@ package pe.com.fas.bookito.restcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -28,7 +29,7 @@ import pe.com.fas.bookito.model.Categoria;
 import pe.com.fas.bookito.service.ICategoriaService;
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("/api/v1/categorias")
 @Api(value = "categorias", description = "Operaciones para la entidad Categoría")
 @CrossOrigin(origins = "*")
 public class CategoriaController {
@@ -43,7 +44,9 @@ public class CategoriaController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping("")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Categoria> getCategorias() {
+	public List<Categoria> getCategorias(@HeaderParam(value = "Authorization") String header) {
+		String head = header;
+		System.out.println("This is my header " + head);
 		List<Categoria> list = new ArrayList<>();
 		try {
 			list = service.findAll();

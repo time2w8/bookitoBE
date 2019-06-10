@@ -52,17 +52,4 @@ public class UsuarioService implements IUsuarioService {
 		return null;
 	}
 
-	@Override
-	public Usuario findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return dao.findByEmail(email);
-	}
-
-	@Override
-	public Usuario findByCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		return dao.findByCodigo(codigo);
-	}
-
-
 }

@@ -3,12 +3,14 @@ package pe.com.fas.bookito.restcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +29,9 @@ import pe.com.fas.bookito.model.Curso;
 import pe.com.fas.bookito.service.ICursoService;
 
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("/api/v1/cursos")
 @Api(value = "cursos", description = "Operaciones para la entidad Curso")
+@Secured("ROLE_ADMIN")
 public class CursoController {
 	
 	@Autowired

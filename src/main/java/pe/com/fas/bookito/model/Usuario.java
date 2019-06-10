@@ -40,10 +40,6 @@ public class Usuario implements Serializable{
 	
 	@NotNull
 	private String apellidos;
-
-	@NotNull
-	@Email
-	private String email;
 	
 	@NotNull
 	private String direccion;
@@ -54,26 +50,10 @@ public class Usuario implements Serializable{
 	@NotNull
 	@Size(min=9, max=9)
 	private Long celular;
-
-	@NotNull
-	private String password;
-	
-	@NotNull
-	private Date lastLogin;
-	
-	@NotNull
-	private String status;
-	
-	@NotNull
-	private Long intentos;
 	
 	@ManyToOne(fetch =  FetchType.EAGER)
 	private Sede sede;
 	
-	@NotNull
-	private String codigo;
-	
-	@NotNull
 	private Boolean esAlumno;
 	
 	@NotNull
@@ -120,14 +100,6 @@ public class Usuario implements Serializable{
 		this.apellidos = apellidos;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getDireccion() {
 		return direccion;
 	}
@@ -152,52 +124,12 @@ public class Usuario implements Serializable{
 		this.celular = celular;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Long getIntentos() {
-		return intentos;
-	}
-
-	public void setIntentos(Long intentos) {
-		this.intentos = intentos;
-	}
-
 	public Sede getSede() {
 		return sede;
 	}
 
 	public void setSede(Sede sede) {
 		this.sede = sede;
-	}
-
-	public String getCódigo() {
-		return codigo;
-	}
-
-	public void setCódigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public Boolean getEsAlumno() {

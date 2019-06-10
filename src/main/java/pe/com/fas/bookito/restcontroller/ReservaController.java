@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.Reserva;
 import pe.com.fas.bookito.service.IReservaService;
 
 @RestController
-@RequestMapping("/reservas")
+@RequestMapping("/api/v1/reservas")
 public class ReservaController {
 	
 	@Autowired

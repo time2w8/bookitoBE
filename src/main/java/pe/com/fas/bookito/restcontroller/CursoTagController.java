@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.CursoTag;
 import pe.com.fas.bookito.service.ICursoTagService;
 
 @RestController
-@RequestMapping("/curso_tags")
+@RequestMapping("/api/v1/curso_tags")
 public class CursoTagController {
 
 	@Autowired

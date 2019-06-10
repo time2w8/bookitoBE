@@ -9,8 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "role")
+//testing entity 
 public class Role implements Serializable {
 	
 	/**

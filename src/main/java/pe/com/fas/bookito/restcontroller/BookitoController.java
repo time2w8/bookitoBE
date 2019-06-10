@@ -26,7 +26,7 @@ import pe.com.fas.bookito.model.Categoria;
 import pe.com.fas.bookito.service.IBookitoService;
 
 @RestController
-@RequestMapping("/bookitos")
+@RequestMapping("/api/v1/bookitos")
 public class BookitoController {
 	
 	@Autowired

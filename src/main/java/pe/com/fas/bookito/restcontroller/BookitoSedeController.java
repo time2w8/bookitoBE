@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.BookitoSede;
 import pe.com.fas.bookito.service.IBookitoSedeService;
 
 @RestController
-@RequestMapping("/bokito_sedes")
+@RequestMapping("/api/v1/bokito_sedes")
 public class BookitoSedeController {
 
 	@Autowired

@@ -25,7 +25,7 @@ import pe.com.fas.bookito.model.HsUsuario;
 import pe.com.fas.bookito.service.IHsUsuarioService;
 
 @RestController
-@RequestMapping("/hs_usuario")
+@RequestMapping("/api/v1/hs_usuario")
 public class HsUsuarioController {
 
 	@Autowired
