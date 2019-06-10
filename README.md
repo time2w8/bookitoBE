@@ -1,2 +1,2 @@
 # bookitoBE
-Bookito Backend Applitcation
+Bookito Backend Application
