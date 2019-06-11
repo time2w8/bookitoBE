@@ -1,9 +1,11 @@
 package pe.com.fas.bookito.restcontroller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Produces;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.google.gson.JsonObject;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -36,6 +41,7 @@ import pe.com.fas.bookito.service.impl.MyUserDetailsService;
 
 @RestController
 @RequestMapping("")
+@CrossOrigin(origins = "*")
 public class HsUsuarioController {
 
 	@Autowired
@@ -85,21 +91,24 @@ public class HsUsuarioController {
 	@ApiOperation(value = "Inicio de sesión")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PostMapping("/login")
-	public HttpStatus login(@RequestBody HsUsuario obj) {
+	public HsUsuario login(@RequestBody HsUsuario obj) {
 		HsUsuario user = service.findByCodigo(obj.getCodigo());
 		if(user == null) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe usuario");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe");
 		}
-		//admin
-		//$2a$10$EM6RpK6gPZBu8vlRKPSKR.mz5/JS5vr611bjyFuebUxqGFMDNzBsa
+
 		if (encoder.matches(obj.getPassword(), user.getPassword())) {
 			UserDetails sessionUser = security.loadUserByUsername(user.getCodigo());
 			if(sessionUser == null) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe usuario");
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El usuario no existe");
 			}
-			return HttpStatus.OK;
+			user.setLastLogin(new Date());
+			user.setIntentos(new Long(0));
+			service.save(user);
+			return user;
 		}
-		
+		user.setIntentos(user.getIntentos() + 1);
+		service.save(user);
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La contraseña es incorrecta");
 	}
 	

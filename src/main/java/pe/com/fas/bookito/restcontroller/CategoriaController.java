@@ -49,6 +49,7 @@ public class CategoriaController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping("")
 	@Produces(MediaType.APPLICATION_JSON)
+	@CrossOrigin(origins = "*")
 	public List<Categoria> getCategorias(Principal principal) {
 		
 		System.out.println("This is my header " + principal.getName());
