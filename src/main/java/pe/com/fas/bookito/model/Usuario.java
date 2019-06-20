@@ -1,7 +1,9 @@
 package pe.com.fas.bookito.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,11 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.ISBN;
 
 @Entity
 @Table(name = "usuarios")
@@ -59,6 +59,24 @@ public class Usuario implements Serializable{
 	@NotNull
 	private int active;
 
+	@Transient
+	private List<Curso> cursos;
+	
+	public Usuario() {
+		this.cursos = new ArrayList<Curso>();
+	}
+	
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+	
+	public void addCurso(Curso curso) {
+		this.cursos.add(curso);
+	}
 
 	public Long getId() {
 		return id;
