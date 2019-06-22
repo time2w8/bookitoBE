@@ -26,8 +26,19 @@ public class Carrera implements Serializable{
 	@NotNull
 	private String nombre;
 	
+	private String codigo;
+	
 	@NotNull
 	private String facultad;
+
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public Long getId() {
 		return id;

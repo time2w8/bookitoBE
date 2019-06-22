@@ -35,8 +35,15 @@ import com.google.gson.JsonObject;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import pe.com.fas.bookito.model.Carrera;
 import pe.com.fas.bookito.model.HsUsuario;
+import pe.com.fas.bookito.model.Sede;
+import pe.com.fas.bookito.model.Usuario;
+import pe.com.fas.bookito.service.ICarreraService;
 import pe.com.fas.bookito.service.IHsUsuarioService;
+import pe.com.fas.bookito.service.ISedeService;
+import pe.com.fas.bookito.service.IUniversidadService;
+import pe.com.fas.bookito.service.IUsuarioService;
 import pe.com.fas.bookito.service.impl.MyUserDetailsService;
 
 @RestController
@@ -46,6 +53,18 @@ public class HsUsuarioController {
 
 	@Autowired
 	private IHsUsuarioService service;
+	
+	@Autowired
+	private IUsuarioService serviceUsuario;
+	
+	@Autowired
+	private IUniversidadService serviceUniversidad;
+	
+	@Autowired
+	private ICarreraService serviceCarrera;
+	
+	@Autowired
+	private ISedeService serviceSede;
 	
 	@Autowired
 	private MyUserDetailsService security;
@@ -117,9 +136,9 @@ public class HsUsuarioController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@PostMapping("/api/v1/hs_usuario/checkCodigo")
+	@PostMapping("/checkCodigo")
 	@Produces(MediaType.APPLICATION_JSON)
-	public HttpStatus checkCodigo(@HeaderParam(value="Authorization") HttpHeaders header,@RequestBody String codigo) {
+	public HttpStatus checkCodigo(@RequestBody String codigo) {
 	
 		
 		if(service.findByCodigo(codigo) == null) {
@@ -135,7 +154,7 @@ public class HsUsuarioController {
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@PostMapping("/api/v1/hs_usuario/checkEmail")
+	@PostMapping("/checkEmail")
 	@Produces(MediaType.APPLICATION_JSON)
 	public HttpStatus checkEmail(@RequestBody String email) {
 	
@@ -156,15 +175,42 @@ public class HsUsuarioController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public HsUsuario save(HttpSession session,@RequestBody HsUsuario HsUsuario) {
 		
-		HsUsuario user = HsUsuario;
+		String codigoCarrera = HsUsuario.getUsuario().getCarrera().getCodigo();
+		String codigoSede = HsUsuario.getUsuario().getSede().getCodigo();
+		String codigoUniversidad = HsUsuario.getUsuario().getSede().getUniversidad().getCodigo();
+		
+		Long idCarrera = serviceCarrera.findByCodigo(codigoCarrera).getId();
+		Long idSede = serviceSede.findByCodigo(codigoSede).getId();
+		
+		Carrera carrera = new Carrera();
+		carrera.setId(idCarrera);
+		Sede sede = new Sede();
+		sede.setId(idSede);
+		
 		HsUsuario.setIntentos(new Long(0));
 		HsUsuario.setLastLogin(new Date());
-		HsUsuario.setRol("ROLE_USER");
-		HsUsuario.setStatus("A");
-		HsUsuario.setPassword(encoder.encode(user.getPassword()));
-		
-		user = service.findByCodigo(HsUsuario.getCodigo());
-		
+		HsUsuario.setPassword(encoder.encode(HsUsuario.getPassword()));
+		Usuario userData =  new Usuario();
+		userData = HsUsuario.getUsuario();
+		userData.setCarrera(carrera);
+		userData.setSede(sede);
+		HsUsuario.setUsuario(userData);
+		//user = service.findByCodigo(HsUsuario.getCodigo());
+		//return user;
+		try {
+			service.save(HsUsuario);
+			try {
+				this.serviceUsuario.save(userData);
+				return HsUsuario;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.print(e);
+				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Ocurrió un error inesperado.");
+			}		} catch (Exception e) {
+			// TODO: handle exception
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Ocurrió un error inesperado.");
+		}
+		/*
 		if(user != null) {
 			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Ya existe un usuario con ese código.");
 		}else {
@@ -181,7 +227,7 @@ public class HsUsuarioController {
 					throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Ocurrió un error inesperado.");
 				}
 			}
-		}		
+		}*/		
 	}
 
 	@ApiOperation(value = "Actualizar un HsUsuario por ID", response = Iterable.class)

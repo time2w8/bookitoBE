@@ -52,5 +52,11 @@ public class UniversidadService implements IUniversidadService {
 		return null;
 	}
 
+	@Override
+	public Universidad findByCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return dao.findByCodigo(codigo);
+	}
+
 
 }

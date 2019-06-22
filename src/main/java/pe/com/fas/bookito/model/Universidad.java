@@ -24,7 +24,19 @@ public class Universidad implements Serializable {
 	private Long id;
 	
 	@NotNull
-	private String name;
+	private String nombre;
+	
+	private String codigo;
+	
+	
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public Long getId() {
 		return id;
@@ -34,12 +46,12 @@ public class Universidad implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 }

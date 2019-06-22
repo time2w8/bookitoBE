@@ -28,11 +28,23 @@ public class Sede implements Serializable{
 	@NotNull
 	private String ubicacion;
 	
+	private String codigo;
+	
 	@NotNull
 	private String nombre;
 	
 	@ManyToOne(fetch =  FetchType.EAGER)
 	private Universidad universidad;
+	
+	
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public Long getId() {
 		return id;

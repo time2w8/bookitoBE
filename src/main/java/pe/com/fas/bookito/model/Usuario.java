@@ -29,35 +29,24 @@ public class Usuario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
 	private String nombres;
+	
+	private int active;
 	
 	@ManyToOne(fetch =  FetchType.EAGER)
 	private Carrera carrera;
 	
-	@NotNull
 	private Date nacimiento;
 	
-	@NotNull
 	private String apellidos;
 	
-	@NotNull
 	private String direccion;
 	
-	@NotNull
-	private String dni;
-	
-	@NotNull
-	@Size(min=9, max=9)
-	private Long celular;
 	
 	@ManyToOne(fetch =  FetchType.EAGER)
 	private Sede sede;
 	
 	private Boolean esAlumno;
-	
-	@NotNull
-	private int active;
 
 	@Transient
 	private List<Curso> cursos;
@@ -66,6 +55,17 @@ public class Usuario implements Serializable{
 		this.cursos = new ArrayList<Curso>();
 	}
 	
+	
+	public int getActive() {
+		return active;
+	}
+
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
+
 	public List<Curso> getCursos() {
 		return cursos;
 	}
@@ -126,22 +126,6 @@ public class Usuario implements Serializable{
 		this.direccion = direccion;
 	}
 
-	public String getDni() {
-		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
-	public Long getCelular() {
-		return celular;
-	}
-
-	public void setCelular(Long celular) {
-		this.celular = celular;
-	}
-
 	public Sede getSede() {
 		return sede;
 	}
@@ -156,14 +140,6 @@ public class Usuario implements Serializable{
 
 	public void setEsAlumno(Boolean esAlumno) {
 		this.esAlumno = esAlumno;
-	}
-
-	public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
 	}
 
 }

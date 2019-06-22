@@ -52,4 +52,10 @@ public class SedeService implements ISedeService {
 		return null;
 	}
 
+	@Override
+	public Sede findByCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return dao.findByCodigo(codigo);
+	}
+
 }

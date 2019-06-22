@@ -52,4 +52,10 @@ public class CarreraService implements ICarreraService {
 		return null;
 	}
 
+	@Override
+	public Carrera findByCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return dao.findByCodigo(codigo);
+	}
+
 }
